@@ -79,6 +79,9 @@ RUN pip install nteract_on_jupyter
 # Install lastest build from main branch of Microsoft.DotNet.Interactive
 RUN dotnet tool install -g Microsoft.dotnet-interactive
 
+# Install the ServiceStack `x` tool
+RUN dotnet tool install -g x
+
 # Pre-install packages
 RUN dotnet restore ${HOME}/Notebooks/pkg/pkg.sln
 
