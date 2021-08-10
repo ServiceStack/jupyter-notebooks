@@ -63,6 +63,7 @@ RUN echo "\
   </solution>\
   <packageSources>\
     <clear />\
+    <add key=\"ServiceStack MyGet feed\" value=\"https://www.myget.org/F/servicestack\" />\
     <add key=\"dotnet-public\" value=\"https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-public/nuget/v3/index.json\" />\
     <add key=\"dotnet-eng\" value=\"https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json\" />\
     <add key=\"dotnet-tools\" value=\"https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json\" />\
