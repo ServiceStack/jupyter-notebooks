@@ -80,7 +80,7 @@ RUN pip install nteract_on_jupyter
 RUN dotnet tool install -g Microsoft.dotnet-interactive
 
 # Pre-install packages
-RUN dotnet restore ./pkg/pkg.sln
+RUN dotnet restore ${HOME}/Notebooks/pkg/pkg.sln
 
 ENV PATH="${PATH}:${HOME}/.dotnet/tools"
 RUN echo "$PATH"
