@@ -70,6 +70,18 @@ RUN echo "\
 </configuration>\
 " > ${HOME}/NuGet.config
 
+RUN echo "\
+<Project Sdk=\"Microsoft.NET.Sdk.Web\">\
+  <PropertyGroup>\
+    <TargetFramework>net5.0</TargetFramework>\
+  </PropertyGroup>\
+  <ItemGroup>\
+    <PackageReference Include=\"ServiceStack\" Version=\"5.*\" />\
+    <PackageReference Include=\"Plotly.NET.Interactive\" Version=\"2.0.0-preview.6\" />\
+  </ItemGroup>\
+</Project>\
+" > ${HOME}/preload.csproj
+
 RUN chown -R ${NB_UID} ${HOME}
 USER ${USER}
 
@@ -80,7 +92,7 @@ RUN pip install nteract_on_jupyter
 RUN dotnet tool install -g Microsoft.dotnet-interactive
 
 # Pre-install packages
-RUN dotnet restore ${HOME}/Notebooks/pkg/pkg.sln
+RUN dotnet restore ${HOME}/preload.csproj
 
 ENV PATH="${PATH}:${HOME}/.dotnet/tools"
 RUN echo "$PATH"
