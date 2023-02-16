@@ -1,4 +1,4 @@
-FROM jupyter/base-notebook:latest
+FROM jupyter/base-notebook:ubuntu-20.04
 
 # Install .NET CLI dependencies
 
@@ -39,11 +39,11 @@ RUN apt-get update \
 # Install .NET Core SDK
 
 # When updating the SDK version, the sha512 value a few lines down must also be updated.
-ENV DOTNET_SDK_VERSION 5.0.102
+ENV DOTNET_SDK_VERSION 6.0.406
 
-RUN dotnet_sdk_version=5.0.102 \
+RUN dotnet_sdk_version=6.0.406 \
     && curl -SL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$dotnet_sdk_version/dotnet-sdk-$dotnet_sdk_version-linux-x64.tar.gz \
-    && dotnet_sha512='0ce2d5365ca39808fb71baec4584d4ec786491c3735543dc93244604ea97e242377d0987cd8b1e529258dee68f203b5780559201e7ea6d84487d6d8d433329b3' \
+    && dotnet_sha512='4553aed8455501e506ee7498a07bff56e434249406266f9fd50eb653743e8fc9c032798f75e34c2a2a2c134ce87a8f05a0288fc8f53ddc1d7a91826c36899692' \
     && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
     && tar -ozxf dotnet.tar.gz -C /usr/share/dotnet \
@@ -73,11 +73,11 @@ RUN echo "\
 RUN echo "\
 <Project Sdk=\"Microsoft.NET.Sdk.Web\">\
   <PropertyGroup>\
-    <TargetFramework>net5.0</TargetFramework>\
+    <TargetFramework>net6.0</TargetFramework>\
   </PropertyGroup>\
   <ItemGroup>\
-    <PackageReference Include=\"ServiceStack\" Version=\"5.*\" />\
-    <PackageReference Include=\"Plotly.NET.Interactive\" Version=\"2.0.0-preview.6\" />\
+    <PackageReference Include=\"ServiceStack\" Version=\"6.*\" />\
+    <PackageReference Include=\"Plotly.NET.Interactive\" Version=\"3.0.2\" />\
   </ItemGroup>\
 </Project>\
 " > ${HOME}/preload.csproj
@@ -89,7 +89,7 @@ USER ${USER}
 RUN pip install nteract_on_jupyter
 
 # Install lastest build from main branch of Microsoft.DotNet.Interactive
-RUN dotnet tool install -g Microsoft.dotnet-interactive
+RUN dotnet tool install -g Microsoft.dotnet-interactive --version 1.0.350406
 
 # Install the ServiceStack `x` tool
 RUN dotnet tool install -g x
